@@ -2,6 +2,10 @@
 
 이 프로젝트는 인터랙티브 CSS 학습 웹사이트입니다. 사용자는 각 CSS 속성에 대한 설명을 읽고, 실시간 미리보기와 코드 편집기를 통해 직접 코드를 수정하며 학습 효과를 높일 수 있습니다. 또한, 각 챕터의 마지막에는 퀴즈가 포함되어 있어 학습 내용을 점검할 수 있습니다.
 
+
+<img width="350" height="1036" alt="image" src="https://github.com/user-attachments/assets/9408896f-d3bb-4def-b4e7-2cf9e5467dbe" />
+<img width="350" height="1099" alt="image" src="https://github.com/user-attachments/assets/e2b21a9a-46fb-4ff5-b3f2-f761ae9da48f" />
+
 ## ✨ 주요 기능
 
 - **인터랙티브 학습 환경**: CodeMirror 기반의 코드 에디터와 실시간 미리보기를 통해 CSS를 직접 실습하고 결과를 즉시 확인할 수 있습니다.
