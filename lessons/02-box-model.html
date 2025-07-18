@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2. 박스 모델 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+</head>
+<body>
+    <header>
+        <h1>2. 박스 모델 (Box Model)</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p>모든 HTML 요소는 사각형의 박스로 표현됩니다. 박스 모델은 content(콘텐츠), padding(안쪽 여백), border(테두리), margin(바깥 여백)으로 구성됩니다.</p>
+        </section>
+
+        <section>
+            <h2>예시 코드</h2>
+            <div class="example-container">
+                <div class="code-block">
+                    <h3>HTML</h3>
+                    <pre><code>&lt;div class="box"&gt;박스 모델 예제&lt;/div&gt;</code></pre>
+                </div>
+                <div class="code-block">
+                    <h3>CSS</h3>
+                    <pre><code>.box {
+    width: 200px;
+    padding: 20px;
+    border: 5px solid navy;
+    margin: 30px;
+    background-color: lightblue;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview" class="preview-box">
+                 <div class="box-model-example">
+                    <div class="margin">
+                        Margin
+                        <div class="border">
+                            Border
+                            <div class="padding">
+                                Padding
+                                <div class="content">
+                                    Content
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 CSS의 padding, border, margin 값을 수정하고 '적용하기' 버튼을 눌러보세요.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">.content {
+    padding: 20px; /* 이 값을 바꿔보세요 */
+    border: 10px solid green; /* 이 값을 바꿔보세요 */
+    margin: 15px; /* 이 값은 시각적으로 표현되지 않습니다 */
+    background-color: lightcoral;
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> 요소의 전체 너비에 영향을 주지 않으면서 안쪽 여백(padding)을 추가하고 싶을 때, 어떤 CSS 속성을 사용해야 할까요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'box-sizing');">
+                    <label><input type="radio" name="answer" value="box-sizing"> box-sizing: border-box;</label>
+                    <label><input type="radio" name="answer" value="display"> display: inline-block;</label>
+                    <label><input type="radio" name="answer" value="overflow"> overflow: hidden;</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            const styleTag = document.getElementById('practice-style');
+            styleTag.innerHTML = code;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

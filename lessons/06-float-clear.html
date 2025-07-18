@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6. Float & Clear - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+    <style>
+        .float-container::after { /* clearfix 핵 */
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .float-box {
+            width: 150px;
+            height: 150px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>6. Float & Clear</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p><code>float</code> 속성은 요소를 보통의 흐름에서 벗어나 컨테이너의 왼쪽이나 오른쪽에 배치되도록 합니다. 주로 이미지 주위를 텍스트로 감싸는 등의 레이아웃에 사용되었습니다.</p>
+            <ul>
+                <li><strong>float: left;</strong>: 요소를 왼쪽에 띄웁니다.</li>
+                <li><strong>float: right;</strong>: 요소를 오른쪽에 띄웁니다.</li>
+                <li><strong>clear: both;</strong>: float된 요소의 영향을 받지 않고, 그 아래로 내려가도록 만듭니다. 부모 컨테이너가 float된 자식의 높이를 인식하지 못하는 문제를 해결하는 데 사용됩니다.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview">
+                <div class="float-container" style="border: 2px solid #ccc; padding: 10px;">
+                    <div class="float-box" style="float: left;">Float Left</div>
+                    <p>이 텍스트는 float된 요소 주위를 흐릅니다. float 속성은 원래 이미지를 텍스트가 감싸도록 하기 위해 만들어졌습니다. 하지만 과거에는 전체 페이지 레이아웃을 잡는 데에도 널리 사용되었습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 박스에 <code>float: right;</code>를 적용하고, 그 아래 문단에 <code>clear: both;</code>를 적용하여 어떻게 변하는지 확인해보세요.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">.float-box {
+    float: left; /* 이 값을 right로 바꿔보세요 */
+}
+
+p {
+    /* 여기에 clear: both; 를 추가해보세요 */
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> <code>float</code> 속성이 적용된 요소가 부모 컨테이너의 높이에 영향을 주지 않는 문제를 해결하기 위해 사용하는 속성은 무엇인가요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'clear');">
+                    <label><input type="radio" name="answer" value="overflow"> overflow: hidden;</label>
+                    <label><input type="radio" name="answer" value="clear"> clear: both;</label>
+                    <label><input type="radio" name="answer" value="display"> display: block;</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            let styleTag = document.getElementById('practice-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'practice-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = `#live-preview ${code}`;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3. Flexbox - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+    <style>
+        .flex-container {
+            display: flex;
+            background-color: #f4f4f4;
+            border: 2px solid #ccc;
+            padding: 10px;
+        }
+        .flex-item {
+            background-color: dodgerblue;
+            color: white;
+            padding: 20px;
+            margin: 5px;
+            text-align: center;
+            flex-grow: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>3. Flexbox</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p>Flexbox는 1차원 레이아웃(행 또는 열)을 위한 CSS 모델입니다. 아이템들을 컨테이너 안에서 정렬하고, 공간을 배분하는 강력하고 유연한 방법을 제공합니다.</p>
+            <ul>
+                <li><strong>flex-container</strong>: 아이템들을 감싸는 부모 요소입니다. <code>display: flex;</code>를 적용합니다.</li>
+                <li><strong>flex-item</strong>: 컨테이너의 자식 요소들입니다.</li>
+                <li><strong>justify-content</strong>: 주 축(main axis) 방향으로 아이템을 정렬합니다. (예: <code>flex-start</code>, <code>center</code>, <code>space-between</code>)</li>
+                <li><strong>align-items</strong>: 교차 축(cross axis) 방향으로 아이템을 정렬합니다. (예: <code>stretch</code>, <code>center</code>, <code>flex-start</code>)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview">
+                <div class="flex-container">
+                    <div class="flex-item">1</div>
+                    <div class="flex-item">2</div>
+                    <div class="flex-item">3</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 CSS의 <code>justify-content</code>와 <code>align-items</code> 값을 수정하고 '적용하기' 버튼을 눌러보세요.</p>
+            <p><strong>justify-content 추천 값:</strong> flex-start, flex-end, center, space-between, space-around</p>
+            <p><strong>align-items 추천 값:</strong> stretch, flex-start, flex-end, center, baseline</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">.flex-container {
+    justify-content: flex-start;
+    align-items: stretch;
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> Flexbox 컨테이너에서 자식 요소들을 가로 방향 중앙에 배치하려면 어떤 속성을 사용해야 할까요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'justify-content');">
+                    <label><input type="radio" name="answer" value="align-items"> align-items: center;</label>
+                    <label><input type="radio" name="answer" value="justify-content"> justify-content: center;</label>
+                    <label><input type="radio" name="answer" value="flex-direction"> flex-direction: column;</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            let styleTag = document.getElementById('practice-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'practice-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = `#live-preview .flex-container { ${code.substring(code.indexOf('{') + 1, code.lastIndexOf('}'))} }`;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

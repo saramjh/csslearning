@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8. 텍스트 및 글꼴 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+</head>
+<body>
+    <header>
+        <h1>8. 텍스트 및 글꼴 (Text & Fonts)</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p>웹 페이지의 가독성과 디자인에 큰 영향을 미치는 텍스트와 글꼴 관련 속성들입니다.</p>
+            <ul>
+                <li><strong>font-family</strong>: 글꼴을 지정합니다. (예: <code>"Arial", sans-serif</code>)</li>
+                <li><strong>font-size</strong>: 글자 크기를 지정합니다. (예: <code>16px</code>, <code>1.2em</code>, <code>120%</code>)</li>
+                <li><strong>font-weight</strong>: 글자 굵기를 지정합니다. (예: <code>normal</code>, <code>bold</code>, <code>700</code>)</li>
+                <li><strong>color</strong>: 글자 색상을 지정합니다.</li>
+                <li><strong>text-align</strong>: 텍스트의 수평 정렬을 지정합니다. (예: <code>left</code>, <code>center</code>, <code>right</code>)</li>
+                <li><strong>line-height</strong>: 줄 간격을 지정합니다.</li>
+                <li><strong>text-decoration</strong>: 텍스트에 장식(밑줄, 윗줄 등)을 추가합니다. (예: <code>none</code>, <code>underline</code>)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview" class="preview-box">
+                <p style="font-family: Georgia, serif; font-size: 20px; color: #333;">이것은 Georgia 글꼴입니다.</p>
+                <p style="font-weight: bold; text-align: center; line-height: 1.8;">굵고 중앙 정렬된 텍스트입니다.</p>
+                <p style="text-decoration: underline; color: blue;">밑줄 친 텍스트입니다.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 텍스트의 CSS 속성 값을 수정하고 '적용하기' 버튼을 눌러보세요.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">.practice-text {
+    font-size: 18px;
+    color: #D81B60;
+    text-align: left;
+    line-height: 1.5;
+    font-weight: normal;
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <div id="practice-preview" style="border: 1px dashed #999; margin-top: 10px; padding: 10px;">
+                <p class="practice-text">이 텍스트의 스타일을 바꿔보세요!</p>
+            </div>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> 텍스트의 줄 간격을 조절하는 CSS 속성은 무엇인가요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'line-height');">
+                    <label><input type="radio" name="answer" value="font-size"> font-size</label>
+                    <label><input type="radio" name="answer" value="letter-spacing"> letter-spacing</label>
+                    <label><input type="radio" name="answer" value="line-height"> line-height</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            let styleTag = document.getElementById('practice-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'practice-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = `#practice-preview ${code}`;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

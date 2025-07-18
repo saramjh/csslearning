@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. CSS 선택자 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+</head>
+<body>
+    <header>
+        <h1>1. CSS 선택자 (Selectors)</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p>CSS 선택자는 어떤 HTML 요소에 스타일을 적용할지 결정하는 규칙입니다. 가장 기본적인 선택자로는 태그, 클래스(.), 아이디(#) 선택자가 있습니다.</p>
+        </section>
+
+        <section>
+            <h2>예시 코드</h2>
+            <div class="example-container">
+                <div class="code-block">
+                    <h3>HTML</h3>
+                    <pre><code>&lt;p&gt;이것은 일반 p 태그입니다.&lt;/p&gt;
+&lt;p class="highlight"&gt;이것은 클래스가 적용된 p 태그입니다.&lt;/p&gt;
+&lt;p id="unique"&gt;이것은 아이디가 적용된 p 태그입니다.&lt;/p&gt;</code></pre>
+                </div>
+                <div class="code-block">
+                    <h3>CSS</h3>
+                    <pre><code>p {
+    color: black;
+}
+
+.highlight {
+    color: blue;
+    font-weight: bold;
+}
+
+#unique {
+    color: red;
+    text-decoration: underline;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview" class="preview-box">
+                <p>이것은 일반 p 태그입니다.</p>
+                <p class="highlight">이것은 클래스가 적용된 p 태그입니다.</p>
+                <p id="unique">이것은 아이디가 적용된 p 태그입니다.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 CSS 코드를 수정하고 '적용하기' 버튼을 눌러보세요.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">.highlight {
+    background-color: yellow;
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> 여러 요소에 동일한 스타일을 반복적으로 적용하고 싶을 때 가장 적합한 선택자 유형은 무엇일까요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'class');">
+                    <label><input type="radio" name="answer" value="tag"> 태그 선택자</label>
+                    <label><input type="radio" name="answer" value="class"> 클래스 선택자</label>
+                    <label><input type="radio" name="answer" value="id"> 아이디 선택자</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue(); // CodeMirror 인스턴스에서 값 가져오기
+            const styleTag = document.getElementById('practice-style');
+            styleTag.innerHTML = code;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

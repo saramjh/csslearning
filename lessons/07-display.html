@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7. Display 속성 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+    <style>
+        .disp-box {
+            padding: 20px;
+            margin: 10px;
+            color: white;
+        }
+        .block { display: block; background-color: #f44336; }
+        .inline { display: inline; background-color: #4CAF50; }
+        .inline-block { display: inline-block; background-color: #2196F3; width: 200px; height: 50px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>7. Display 속성</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p><code>display</code> 속성은 요소가 어떻게 보이고 다른 요소와 어떻게 상호작용하는지를 결정합니다.</p>
+            <ul>
+                <li><strong>block</strong>: 항상 새로운 줄에서 시작하고, 사용 가능한 전체 너비를 차지합니다. <code>width</code>, <code>height</code>, <code>margin</code>, <code>padding</code> 속성을 모두 사용할 수 있습니다. (예: <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>)</li>
+                <li><strong>inline</strong>: 새로운 줄에서 시작하지 않으며, 내용에 필요한 만큼의 너비만 차지합니다. <code>width</code>, <code>height</code> 속성을 적용할 수 없습니다. (예: <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>)</li>
+                <li><strong>inline-block</strong>: <code>inline</code>처럼 다른 요소와 같은 줄에 배치될 수 있으면서, <code>block</code>처럼 <code>width</code>, <code>height</code>, <code>margin</code>, <code>padding</code> 속성을 모두 지정할 수 있습니다.</li>
+                <li><strong>none</strong>: 요소를 화면에서 완전히 사라지게 만듭니다. 공간도 차지하지 않습니다.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview" style="border: 2px solid #ccc; padding: 10px;">
+                <span class="disp-box block">display: block</span>
+                <span class="disp-box inline">display: inline</span>
+                <span class="disp-box inline">display: inline</span>
+                <span class="disp-box inline-block">display: inline-block</span>
+                <span class="disp-box inline-block">display: inline-block</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 <code>.target</code> 클래스의 <code>display</code> 속성을 <code>block</code>, <code>inline</code>, <code>inline-block</code>으로 변경해보세요.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">.target {
+    display: inline;
+    width: 150px; /* inline일 때는 적용되지 않습니다 */
+    height: 40px; /* inline일 때는 적용되지 않습니다 */
+    background-color: #ff9800;
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <div id="practice-preview" style="border: 1px dashed #999; margin-top: 10px; padding: 10px;">
+                여기에 <span class="target">TARGET</span> 요소가 있습니다.
+            </div>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> 다른 요소와 같은 줄에 배치되면서 너비(width)와 높이(height)를 가질 수 있는 <code>display</code> 속성 값은 무엇일까요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'inline-block');">
+                    <label><input type="radio" name="answer" value="inline"> inline</label>
+                    <label><input type="radio" name="answer" value="block"> block</label>
+                    <label><input type="radio" name="answer" value="inline-block"> inline-block</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            let styleTag = document.getElementById('practice-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'practice-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = `#practice-preview ${code}`;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

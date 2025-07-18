@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14. 유동적인 이미지/비디오 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+    <style>
+        .fluid-container {
+            width: 80%;
+            max-width: 600px; /* 컨테이너 최대 너비 설정 */
+            margin: 20px auto;
+            border: 2px solid #ccc;
+            padding: 10px;
+        }
+        .fluid-image {
+            width: 100%; /* 부모 요소 너비에 꽉 차게 */
+            height: auto; /* 비율 유지를 위해 높이는 자동으로 */
+        }
+        .non-fluid-image {
+            width: 500px; /* 고정 너비 */
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>14. 유동적인 이미지/비디오 (Fluid Images/Videos)</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p>반응형 웹에서 이미지가 컨테이너(부모 요소)의 크기를 벗어나지 않도록 만드는 핵심 속성은 <code>max-width: 100%;</code> 입니다.</p>
+            <ul>
+                <li><strong><code>width: 100%;</code></strong>: 이미지가 항상 부모 요소의 너비를 꽉 채웁니다. 부모가 작아지면 이미지도 작아집니다.</li>
+                <li><strong><code>max-width: 100%;</code></strong>: 이미지의 원래 크기보다는 커지지 않으면서, 부모 요소가 이미지보다 작아지면 그에 맞춰 작아집니다. 가장 일반적으로 사용되는 안전한 방법입니다.</li>
+                <li><strong><code>height: auto;</code></strong>: 너비가 조절될 때 이미지의 가로세로 비율이 유지되도록 합니다.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <p>브라우저 창의 너비를 조절해보세요. 위쪽 이미지는 유동적으로 변하지만, 아래쪽 이미지는 고정되어 있습니다.</p>
+            <div id="live-preview">
+                <h3>유동적인 이미지 (max-width: 100%)</h3>
+                <div class="fluid-container">
+                    <img src="https://via.placeholder.com/600x300" alt="Fluid Image" style="max-width: 100%; height: auto;">
+                </div>
+
+                <h3>고정 크기 이미지 (width: 500px)</h3>
+                <div class="fluid-container">
+                     <img src="https://via.placeholder.com/500x250" alt="Fixed Image" class="non-fluid-image">
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 이미지에 <code>max-width: 100%;</code>와 <code>height: auto;</code>를 적용하여 유동적으로 만들어보세요.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">.practice-image {
+    width: 400px; /* 이 부분을 수정해보세요 */
+    height: 200px;
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <div id="practice-preview" style="width: 80%; max-width: 500px; border: 1px dashed #999; margin-top: 10px; padding: 10px;">
+                <img class="practice-image" src="https://via.placeholder.com/400x200">
+            </div>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> 이미지가 부모 요소의 너비에 맞춰 유동적으로 조절되면서도, 이미지의 원래 크기보다 커지지 않게 하는 가장 좋은 방법은 무엇일까요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'max-width');">
+                    <label><input type="radio" name="answer" value="width"> width: 100%;</label>
+                    <label><input type="radio" name="answer" value="max-width"> max-width: 100%;</label>
+                    <label><input type="radio" name="answer" value="min-width"> min-width: 100%;</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            let styleTag = document.getElementById('practice-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'practice-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = `#practice-preview ${code}`;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

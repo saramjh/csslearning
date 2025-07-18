@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15. CSS 변수 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+    <style>
+        :root {
+            --main-bg-color: #3498db;
+            --main-text-color: #ffffff;
+            --main-padding: 15px;
+        }
+
+        .variable-box {
+            background-color: var(--main-bg-color);
+            color: var(--main-text-color);
+            padding: var(--main-padding);
+            border: 2px solid var(--main-bg-color, black); /* 두 번째 값은 fallback */
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>15. CSS 변수 (Custom Properties)</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p>CSS 변수를 사용하면 재사용할 값을 미리 정의해두고 필요할 때마다 불러와서 사용할 수 있습니다. 코드의 유지보수성과 가독성을 크게 향상시킵니다.</p>
+            <ul>
+                <li><strong>선언</strong>: <code>--변수이름: 값;</code> 형태로 선언합니다. 보통 <code>:root</code> 가상 클래스에 선언하여 전역적으로 사용합니다.</li>
+                <li><strong>사용</strong>: <code>var(--변수이름)</code> 함수를 사용하여 값을 불러옵니다.</li>
+                <li><strong>Fallback</strong>: <code>var(--변수이름, 대체값)</code> 형태로, 변수가 정의되지 않았을 경우 사용할 대체값을 지정할 수 있습니다.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview">
+                <div class="variable-box">
+                    이 박스는 CSS 변수로 스타일이 적용되었습니다.
+                </div>
+                <div class="variable-box" style="--main-bg-color: #e74c3c;">
+                    이 박스는 인라인 스타일로 변수 값을 재정의했습니다.
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 <code>:root</code>에 선언된 변수 값을 수정하고 '적용하기' 버튼을 눌러보세요. 아래 두 박스의 스타일이 모두 변합니다.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">:root {
+    --theme-color: #2ecc71;
+    --text-color: white;
+    --border-radius: 8px;
+}
+
+.practice-box-1 {
+    background-color: var(--theme-color);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.practice-box-2 {
+    border: 2px solid var(--theme-color);
+    color: var(--theme-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <div id="practice-preview">
+                <div class="practice-box-1">테마 박스 1</div>
+                <div class="practice-box-2">테마 박스 2</div>
+            </div>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> CSS 변수를 사용하여 값을 불러올 때 사용하는 함수는 무엇인가요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'var');">
+                    <label><input type="radio" name="answer" value="calc"> calc()</label>
+                    <label><input type="radio" name="answer" value="var"> var()</label>
+                    <label><input type="radio" name="answer" value="attr"> attr()</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            let styleTag = document.getElementById('practice-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'practice-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = code;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

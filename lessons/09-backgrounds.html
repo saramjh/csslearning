@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9. 배경 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+    <style>
+        .bg-box {
+            border: 2px solid #333;
+            color: white;
+            text-shadow: 2px 2px 4px #000000;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            padding-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>9. 배경 (Backgrounds)</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p>요소의 배경을 꾸미는 속성들입니다. 단색, 이미지 등 다양한 효과를 줄 수 있습니다.</p>
+            <ul>
+                <li><strong>background-color</strong>: 배경 색상을 지정합니다.</li>
+                <li><strong>background-image</strong>: 배경 이미지를 지정합니다. (<code>url('path/to/image.jpg')</code>)</li>
+                <li><strong>background-repeat</strong>: 배경 이미지의 반복 여부를 지정합니다. (<code>no-repeat</code>, <code>repeat-x</code>, <code>repeat-y</code>)</li>
+                <li><strong>background-position</strong>: 배경 이미지의 시작 위치를 지정합니다. (<code>center</code>, <code>top right</code>)</li>
+                <li><strong>background-size</strong>: 배경 이미지의 크기를 지정합니다. (<code>cover</code>, <code>contain</code>, <code>100px 50px</code>)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview">
+                <div class="bg-box" style="background-color: #4a90e2;">배경 색상</div>
+                <div class="bg-box" style="margin-top: 20px; background-image: url('https://via.placeholder.com/400x250'); background-size: cover; background-position: center;">배경 이미지</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 박스의 배경 관련 CSS 속성을 수정하고 '적용하기' 버튼을 눌러보세요.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">.practice-bg {
+    background-color: #6dd5ed;
+    background-image: none; /* url('https://via.placeholder.com/150') 로 바꿔보세요 */
+    background-repeat: repeat;
+    background-position: center;
+    height: 200px;
+    border: 1px solid #ccc;
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <div id="practice-preview">
+                <div class="practice-bg"></div>
+            </div>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> 배경 이미지가 요소 전체를 덮도록 설정하는 <code>background-size</code> 속성 값은 무엇인가요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'cover');">
+                    <label><input type="radio" name="answer" value="contain"> contain</label>
+                    <label><input type="radio" name="answer" value="cover"> cover</label>
+                    <label><input type="radio" name="answer" value="100%"> 100% 100%</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            let styleTag = document.getElementById('practice-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'practice-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = `#practice-preview ${code}`;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

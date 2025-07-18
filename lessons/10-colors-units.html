@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10. 색상 및 단위 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+    <style>
+        .unit-example { font-size: 16px; border: 1px solid #ccc; padding: 10px; }
+        .px-box { font-size: 16px; } /* px은 절대 단위 */
+        .em-box { font-size: 1.2em; } /* em은 부모 요소 기준 배수 단위 */
+        .rem-box { font-size: 1.2rem; } /* rem은 루트 요소(html) 기준 배수 단위 */
+        .vw-box { width: 50vw; background: #eee; } /* vw는 뷰포트 너비의 % */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>10. 색상 및 단위 (Colors & Units)</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명 - 색상</h2>
+            <p>CSS에서 색상을 표현하는 다양한 방법입니다.</p>
+            <ul>
+                <li><strong>HEX</strong>: 16진수 코드 (예: <code>#FF5733</code>)</li>
+                <li><strong>RGB / RGBA</strong>: Red, Green, Blue 값 (0-255). A는 투명도(0-1). (예: <code>rgb(255, 87, 51)</code>, <code>rgba(255, 87, 51, 0.8)</code>)</li>
+                <li><strong>HSL / HSLA</strong>: Hue(색상), Saturation(채도), Lightness(명도). A는 투명도. (예: <code>hsl(10, 100%, 60%)</code>)</li>
+            </ul>
+        </section>
+        <section>
+            <h2>개념 설명 - 단위</h2>
+            <p>크기나 길이를 나타내는 다양한 단위들입니다.</p>
+            <ul>
+                <li><strong>px</strong>: 픽셀. 고정된 크기를 가지는 절대 단위.</li>
+                <li><strong>em</strong>: 부모 요소의 글꼴 크기를 기준으로 하는 상대 단위.</li>
+                <li><strong>rem</strong>: 루트 요소(<code>&lt;html&gt;</code>)의 글꼴 크기를 기준으로 하는 상대 단위.</li>
+                <li><strong>%</strong>: 부모 요소의 크기에 대한 백분율.</li>
+                <li><strong>vw / vh</strong>: 뷰포트(브라우저 창)의 너비/높이에 대한 백분율.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview" class="preview-box">
+                <div class="unit-example">
+                    <p class="px-box">이 텍스트는 16px 입니다.</p>
+                    <div style="font-size: 20px;">
+                        <p class="em-box">이 텍스트는 1.2em (20px * 1.2 = 24px) 입니다.</p>
+                    </div>
+                    <p class="rem-box">이 텍스트는 1.2rem (기본 16px * 1.2 = 19.2px) 입니다.</p>
+                    <div class="vw-box">이 div의 너비는 뷰포트의 50% (50vw) 입니다.</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 박스의 <code>width</code>와 <code>background-color</code> 값을 여러 단위와 색상 표기법으로 변경해보세요.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">.practice-box {
+    width: 200px; /* 50%, 30vw, 15em 등으로 바꿔보세요 */
+    height: 100px;
+    background-color: #3498db; /* rgb(52, 152, 219), hsl(208, 70%, 53%) 등으로 바꿔보세요 */
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <div id="practice-preview">
+                <div class="practice-box"></div>
+            </div>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> 웹 페이지의 루트 요소(<code>&lt;html&gt;</code>)의 글꼴 크기를 기준으로 하는 상대 단위는 무엇일까요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'rem');">
+                    <label><input type="radio" name="answer" value="em"> em</label>
+                    <label><input type="radio" name="answer" value="rem"> rem</label>
+                    <label><input type="radio" name="answer" value="px"> px</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            let styleTag = document.getElementById('practice-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'practice-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = `#practice-preview ${code}`;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

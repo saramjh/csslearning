@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11. 트랜지션 및 애니메이션 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+    <style>
+        .transition-box {
+            width: 100px;
+            height: 100px;
+            background-color: #9b59b6;
+            transition: transform 0.5s ease, background-color 0.5s ease;
+        }
+        .transition-box:hover {
+            transform: rotate(45deg) scale(1.2);
+            background-color: #8e44ad;
+        }
+
+        .animation-box {
+            width: 100px;
+            height: 100px;
+            background-color: #e67e22;
+            position: relative;
+            animation: slide-in 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes slide-in {
+            from {
+                left: 0;
+            }
+            to {
+                left: calc(100% - 100px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>11. 트랜지션 및 애니메이션</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명 - 트랜지션 (Transitions)</h2>
+            <p><code>transition</code> 속성은 CSS 속성 값이 변할 때, 그 변화가 일정 시간에 걸쳐 부드럽게 일어나도록 만듭니다. 주로 <code>:hover</code>나 JavaScript 이벤트와 함께 사용됩니다.</p>
+            <p><code>transition: &lt;property&gt; &lt;duration&gt; &lt;timing-function&gt; &lt;delay&gt;;</code></p>
+        </section>
+        <section>
+            <h2>개념 설명 - 애니메이션 (Animations)</h2>
+            <p><code>@keyframes</code> 규칙을 사용하여 애니메이션의 각 단계를 정의하고, <code>animation</code> 속성을 이용해 요소에 적용합니다. 복잡한 움직임을 만들 수 있습니다.</p>
+            <p><code>animation: &lt;name&gt; &lt;duration&gt; &lt;iteration-count&gt; &lt;direction&gt;;</code></p>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview" class="preview-box">
+                <p><strong>Transition:</strong> 박스에 마우스를 올려보세요.</p>
+                <div class="transition-box"></div>
+                <p style="margin-top: 20px;"><strong>Animation:</strong></p>
+                <div class="animation-box"></div>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 <code>@keyframes</code>의 <code>transform</code> 값을 수정하여 다른 애니메이션을 만들어보세요.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">@keyframes practice-anim {
+    0% { transform: scale(1); background-color: #1abc9c; }
+    50% { transform: scale(1.5) rotate(180deg); background-color: #3498db; }
+    100% { transform: scale(1) rotate(360deg); background-color: #1abc9c; }
+}
+
+.practice-anim-box {
+    width: 80px;
+    height: 80px;
+    animation: practice-anim 4s linear infinite;
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <div id="practice-preview" style="display: flex; align-items: center;">
+                <div class="practice-anim-box"></div>
+            </div>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> CSS 애니메이션의 각 단계를 정의하는 데 사용되는 <code>@</code> 규칙은 무엇인가요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'keyframes');">
+                    <label><input type="radio" name="answer" value="media"> @media</label>
+                    <label><input type="radio" name="answer" value="import"> @import</label>
+                    <label><input type="radio" name="answer" value="keyframes"> @keyframes</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            let styleTag = document.getElementById('practice-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'practice-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = code;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

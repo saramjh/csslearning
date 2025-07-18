@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13. 모바일 우선 디자인 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+    <style>
+        /* 기본 스타일 (모바일) */
+        .mf-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .mf-item {
+            background-color: #16a085;
+            color: white;
+            padding: 20px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        /* 태블릿 (768px 이상) */
+        @media (min-width: 768px) {
+            .mf-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .mf-item {
+                width: 30%;
+                background-color: #2980b9;
+            }
+        }
+
+        /* 데스크탑 (1024px 이상) */
+        @media (min-width: 1024px) {
+            .mf-item {
+                background-color: #c0392b;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>13. 모바일 우선 (Mobile-First) 디자인</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p>모바일 우선 디자인은 웹사이트 CSS를 작성할 때, 가장 작은 화면(모바일)의 스타일을 기본으로 시작하는 접근 방식입니다. 그 후 미디어 쿼리의 <code>min-width</code>를 사용하여 화면이 커짐에 따라 레이아웃과 스타일을 추가하거나 변경합니다.</p>
+            <p><strong>장점:</strong></p>
+            <ul>
+                <li>모바일 사용자에게 최적화된 경험을 우선적으로 제공합니다.</li>
+                <li>불필요한 CSS 재정의(override)를 줄여 코드가 더 깔끔하고 효율적이 됩니다.</li>
+                <li>점진적 향상(Progressive Enhancement) 철학에 부합합니다.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <p>브라우저 창의 너비를 조절해보세요. 모바일(세로) -> 태블릿(가로) -> 데스크탑 순서로 레이아웃과 색상이 변합니다.</p>
+            <div id="live-preview">
+                <div class="mf-container">
+                    <div class="mf-item">아이템 1</div>
+                    <div class="mf-item">아이템 2</div>
+                    <div class="mf-item">아이템 3</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 분석</h2>
+            <p>위 예제의 CSS 코드는 모바일 스타일을 기본으로 작성하고, <code>@media (min-width: ...)</code>를 사용해 화면이 넓어질 때 스타일을 추가하는 방식으로 구성되어 있습니다. 이것이 모바일 우선 접근법의 핵심입니다.</p>
+            <pre><code>/* 기본 (모바일) */
+.mf-container {
+    flex-direction: column;
+}
+
+/* 태블릿 이상 */
+@media (min-width: 768px) {
+    .mf-container {
+        flex-direction: row;
+    }
+}
+</code></pre>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> 모바일 우선 디자인의 가장 큰 장점은 무엇일까요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'mobile-first');">
+                    <label><input type="radio" name="answer" value="desktop-first"> 데스크탑 사용자 경험을 우선시한다.</label>
+                    <label><input type="radio" name="answer" value="mobile-first"> 모바일 사용자에게 최적화된 경험을 제공하고 코드가 간결해진다.</label>
+                    <label><input type="radio" name="answer" value="performance"> 모든 기기에서 동일한 레이아웃을 보여준다.</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+    <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4. Grid - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <link rel="stylesheet" href="../js/codemirror/codemirror.css">
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background-color: #f4f4f4;
+            border: 2px solid #ccc;
+            padding: 10px;
+        }
+        .grid-item {
+            background-color: #2196F3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>4. Grid</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p>CSS Grid는 2차원(행과 열) 레이아웃 시스템을 제공하여, 복잡한 웹 페이지 구조를 쉽게 만들 수 있도록 도와줍니다.</p>
+            <ul>
+                <li><strong>grid-container</strong>: <code>display: grid;</code>를 적용하는 부모 요소입니다.</li>
+                <li><strong>grid-item</strong>: 그리드 컨테이너의 자식 요소입니다.</li>
+                <li><strong>grid-template-columns</strong>: 그리드의 열(column)의 크기와 개수를 정의합니다. (예: <code>1fr 1fr 1fr</code>, <code>100px 200px auto</code>)</li>
+                <li><strong>grid-template-rows</strong>: 그리드의 행(row)의 크기와 개수를 정의합니다.</li>
+                <li><strong>grid-gap</strong> (또는 <code>gap</code>): 그리드 아이템 사이의 간격을 설정합니다.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>실시간 미리보기</h2>
+            <div id="live-preview">
+                <div class="grid-container">
+                    <div class="grid-item">1</div>
+                    <div class="grid-item">2</div>
+                    <div class="grid-item">3</div>
+                    <div class="grid-item">4</div>
+                    <div class="grid-item">5</div>
+                    <div class="grid-item">6</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>코드 연습장</h2>
+            <p>아래 CSS의 <code>grid-template-columns</code>와 <code>gap</code> 값을 수정하고 '적용하기' 버튼을 눌러보세요.</p>
+            <textarea id="code-editor" rows="10" style="width: 100%;">.grid-container {
+    grid-template-columns: auto auto auto;
+    gap: 10px;
+}</textarea>
+            <button onclick="applyCode()">적용하기</button>
+            <style id="practice-style"></style>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> CSS Grid에서 3개의 동일한 너비의 열(column)을 만드는 가장 효율적인 방법은 무엇일까요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, 'repeat');">
+                    <label><input type="radio" name="answer" value="auto"> grid-template-columns: auto auto auto;</label>
+                    <label><input type="radio" name="answer" value="percentage"> grid-template-columns: 33.3% 33.3% 33.3%;</label>
+                    <label><input type="radio" name="answer" value="repeat"> grid-template-columns: repeat(3, 1fr);</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+
+    <script src="../js/codemirror/codemirror.js"></script>
+    <script src="../js/codemirror/mode/css/css.js"></script>
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            mode: "css",
+            lineNumbers: true
+        });
+
+        function applyCode() {
+            const code = editor.getValue();
+            let styleTag = document.getElementById('practice-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'practice-style';
+                document.head.appendChild(styleTag);
+            }
+            styleTag.innerHTML = `#live-preview .grid-container { ${code.substring(code.indexOf('{') + 1, code.lastIndexOf('}'))} }`;
+        }
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

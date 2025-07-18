@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>17. 크로스 브라우징 - CSS 학습</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/examples.css">
+    <style>
+        .vendor-prefix-example {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 100px;
+            color: white;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            
+            /* Vendor Prefixes */
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>17. 크로스 브라우징 (Cross-Browser Compatibility)</h1>
+    </header>
+    <main>
+        <section>
+            <h2>개념 설명</h2>
+            <p>크로스 브라우징은 모든 웹 브라우저(Chrome, Firefox, Safari, Edge 등)에서 웹 페이지가 의도된 대로 동일하게 보이고 기능하도록 만드는 기술적 접근 방법입니다. 브라우저마다 CSS 속성이나 HTML 태그를 해석하는 방식이 조금씩 다를 수 있기 때문에 중요합니다.</p>
+            <ul>
+                <li><strong>벤더 프리픽스 (Vendor Prefixes)</strong>: 특정 브라우저에서만 지원되는 실험적인 CSS 속성을 사용하기 위한 접두사입니다. (예: <code>-webkit-</code>, <code>-moz-</code>, <code>-ms-</code>)</li>
+                <li><strong>Can I Use...</strong>: 특정 웹 기술(CSS 속성, HTML 태그 등)을 각종 브라우저에서 얼마나 지원하는지 확인할 수 있는 매우 유용한 웹사이트입니다.</li>
+                <li><strong>CSS Reset/Normalize</strong>: 브라우저마다 다른 기본 스타일을 초기화하여 일관된 스타일링을 시작할 수 있도록 돕습니다.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>벤더 프리픽스 예시</h2>
+            <p>아래 박스는 일부 속성에 벤더 프리픽스가 적용되어, 구형 브라우저에서도 둥근 모서리와 텍스트 선택 방지 기능이 동작할 수 있도록 합니다.</p>
+            <div id="live-preview" class="preview-box">
+                <div class="vendor-prefix-example">
+                    Vendor Prefixes
+                </div>
+            </div>
+            <pre><code>.example {
+    -webkit-border-radius: 15px; /* Chrome, Safari */
+    -moz-border-radius: 15px;    /* Firefox */
+    border-radius: 15px;         /* Standard */
+}</code></pre>
+        </section>
+
+        <section class="quiz-section">
+            <h2>퀴즈</h2>
+            <div id="quiz">
+                <p><strong>문제:</strong> Chrome, Safari 브라우저를 위한 벤더 프리픽스는 무엇일까요?</p>
+                <form id="quiz-form" onsubmit="event.preventDefault(); checkAnswer(this, '-webkit-');">
+                    <label><input type="radio" name="answer" value="-moz-"> -moz-</label>
+                    <label><input type="radio" name="answer" value="-ms-"> -ms-</label>
+                    <label><input type="radio" name="answer" value="-webkit-"> -webkit-</label>
+                    <button type="submit">정답 확인</button>
+                </form>
+                <p class="quiz-result"></p>
+            </div>
+        </section>
+
+        <a href="../index.html">목차로 돌아가기</a>
+    </main>
+    <script src="../js/main.js"></script>
+</body>
+</html>
